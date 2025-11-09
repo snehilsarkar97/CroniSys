@@ -50,7 +50,7 @@ async def update_book(book_id: int, book_data: BookUpdate, db: Session = Depends
     return book
 
 
-@router.delete("/{book_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/{book_id}", status_code=status.HTTP_200_OK)
 async def delete_book(book_id: int, db: Session = Depends(get_db)):
     """Delete a book by ID."""
     repository = BookRepository(db)
@@ -60,3 +60,4 @@ async def delete_book(book_id: int, db: Session = Depends(get_db)):
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Book not found"
         )
+    return {"message": "Book successfully deleted"}
